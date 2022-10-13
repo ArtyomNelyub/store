@@ -122,6 +122,8 @@ body {
   gap: 15px;
 }
 .navigation__link {
+  color: white;
+  text-decoration: none;
   padding: 5px 10px;
   cursor: pointer;
 }
