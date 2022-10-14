@@ -6,7 +6,7 @@ import { setUserAction } from '../../store/userReducer';
 export default function Auth(props) {
   const { setIsModal } = props;
   const dispatch = useDispatch();
-  const [isError, setError] = useState(false); // = useSelector((state) => state.USER.isError);]
+  const [isError, setError] = useState(false); 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const regExTest = /^[a-zA-Z0-9]+$/;
@@ -15,21 +15,12 @@ export default function Auth(props) {
     setIsModal(false);
   }
 
-  function loginHandler(e) {
+  function inputHandler(e, cb) {
     if (regExTest.test(e.target.value)) {
-      setLogin(e.target.value);
+      cb(e.target.value);
     }
     if (e.target.value === '') {
-      setLogin('');
-    }
-  }
-
-  function passwordHandler(e) {
-    if (regExTest.test(e.target.value)) {
-      setPassword(e.target.value);
-    }
-    if (e.target.value === '') {
-      setPassword('');
+      cb('');
     }
   }
 
@@ -51,10 +42,13 @@ export default function Auth(props) {
         <div className='modal__close' onClick={closeModal}>
           X
         </div>
+        
         {isError && (
-          <div className='modal__error'>Неверный логи или пароль</div>
+          <div className='modal__error'>Неверный логин или пароль</div>
         )}
+
         <div className='modal__data'>
+
           <div className='modal__field'>
             <label htmlFor='login'>Login</label>
             <input
@@ -62,9 +56,10 @@ export default function Auth(props) {
               name='login'
               id='login'
               value={login}
-              onChange={loginHandler}
+              onChange={e => inputHandler(e, setLogin)}
             />
           </div>
+
           <div className='modal__field'>
             <label htmlFor='login'>Password</label>
             <input
@@ -72,9 +67,10 @@ export default function Auth(props) {
               name='login'
               id='login'
               value={password}
-              onChange={passwordHandler}
+              onChange={e => inputHandler(e, setPassword)}
             />
           </div>
+
         </div>
 
         <button className='button' onClick={loginActionHandler}>
@@ -83,6 +79,7 @@ export default function Auth(props) {
         <button className='button button_delete' onClick={closeModal}>
           cancel
         </button>
+        
       </div>
     </div>
   );

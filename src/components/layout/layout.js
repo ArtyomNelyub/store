@@ -2,8 +2,8 @@ import { Outlet, Link } from 'react-router-dom';
 import { APP_ROUTE } from '../../const/app-route';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Auth from '../auth/auth';
 import { logOutAction } from '../../store/userReducer';
+import Auth from '../auth/auth';
 
 export default function Layout() {
   const [isModal, setIsModal] = useState(false);
@@ -31,7 +31,7 @@ export default function Layout() {
           </nav>
           <div className='header__auth auth'>
             {user === null ? (
-              <div className='auth__link' onClick={() => setIsModal(!isModal)}>
+              <div className='auth__link' onClick={() => setIsModal(true)}>
                 Log in
               </div>
             ) : (
