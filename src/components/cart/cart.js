@@ -1,4 +1,11 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { correctCartAction } from '../../store/itemsReducer';
+
 export default function Cart() {
+  const cartItems = useSelector((state) => state.ITEMS.cartItems);
+  const dispatch = useDispatch();
+  console.log(cartItems);
+
   return (
     <div className='cart-page'>
       <div className='cart-page__row'>
@@ -10,28 +17,26 @@ export default function Cart() {
         <div className='cart-page__sum cart-page__title cell'>Sum</div>
         <div className='cart-page__del cart-page__title cell'>Delete</div>
       </div>
-      <div className='cart-page__row'>
-        <div className='cart-page__numb cell'>1</div>
-        <div className='cart-page__id cell'>101</div>
-        <div className='cart-page__name cell'>Sword</div>
-        <div className='cart-page__price cell'>200 р.</div>
-        <div className='cart-page__count cell'>5</div>
-        <div className='cart-page__sum cell'>1000</div>
-        <div className='cart-page__del cell'>
-          <button className='cart-page__button'></button>
-        </div>
-      </div>
-      <div className='cart-page__row'>
-        <div className='cart-page__numb cell'>1</div>
-        <div className='cart-page__id cell'>101</div>
-        <div className='cart-page__name cell'>Sword</div>
-        <div className='cart-page__price cell'>200 р.</div>
-        <div className='cart-page__count cell'>5</div>
-        <div className='cart-page__sum cell'>1000</div>
-        <div className='cart-page__del cell'>
-          <button className='cart-page__button'></button>
-        </div>
-      </div>
+      {cartItems.map((item, index) => {
+        return (
+          <div className='cart-page__row' key={item.id}>
+            <div className='cart-page__numb cell'>{index + 1}</div>
+            <div className='cart-page__id cell'>{item.id}</div>
+            <div className='cart-page__name cell'>{item.name}</div>
+            <div className='cart-page__price cell'>{item.price} р.</div>
+            <div className='cart-page__count cell'>{item.count}</div>
+            <div className='cart-page__sum cell'>{item.price * item.count}</div>
+            <div className='cart-page__del cell'>
+              <button
+                className='cart-page__button'
+                onClick={() => {
+                  dispatch(correctCartAction(item.id));
+                }}
+              ></button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

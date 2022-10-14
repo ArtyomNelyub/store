@@ -3,18 +3,20 @@ export const items = [
   {
     id: 1,
     name: 'item1',
-    price: 100,
+    price: 100.1,
     img: pic,
     description: 'liubRESTDYFUKJTHAERwrgoih',
     count: 1,
+    maxCount: 1,
   },
   {
     id: 2,
     name: 'item2',
-    price: 200,
+    price: 200.2,
     img: pic,
     description: 'vbnAESRDTFYUGIHGYFTDRESiuytredvbnmkoi8765r',
     count: 2,
+    maxCount: 2,
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ export const items = [
     img: pic,
     description: 'sADRFTYGeawfsrdtfhyguikgytdrseYFTr',
     count: 3,
+    maxCount: 3,
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ export const items = [
     img: pic,
     description: 'wetayrsud7fo87tuGaewsrdtfydrhaweFTr',
     count: 4,
+    maxCount: 4,
   },
   {
     id: 5,
@@ -39,6 +43,7 @@ export const items = [
     img: pic,
     description: 'wetayrsud7fo87tuEGAERGSRTHTr',
     count: 5,
+    maxCount: 5,
   },
   {
     id: 6,
@@ -47,6 +52,7 @@ export const items = [
     img: pic,
     description: 'wetayrsud7fo87tawegaerguGUIHawegrsgrwfeaUYFTr',
     count: 6,
+    maxCount: 6,
   },
   {
     id: 7,
@@ -55,6 +61,7 @@ export const items = [
     img: pic,
     description: 'wetayrsWEGFAERGAERGud7fo87tuGUIarwzgxdtfyhgrweYFTr',
     count: 7,
+    maxCount: 7,
   },
   {
     id: 8,
@@ -63,6 +70,7 @@ export const items = [
     img: pic,
     description: 'wetayrsud7ARESUDY7IT8RIESU45Yfo87tuGawegUYFTr',
     count: 8,
+    maxCount: 8,
   },
   {
     id: 9,
@@ -71,6 +79,7 @@ export const items = [
     img: pic,
     description: 'wetayrsud7fo87tuGUIHSYRDID56ISUYERWLUYFTr',
     count: 9,
+    maxCount: 9,
   },
   {
     id: 10,
@@ -79,5 +88,6 @@ export const items = [
     img: pic,
     description: 'wetayrsud7fo87tuGUIHYZE45XU6RCT7FIGYUHIUYFTr',
     count: 10,
+    maxCount: 10,
   },
-]
+];

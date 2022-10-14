@@ -1,39 +1,51 @@
 import CartSmall from '../cart-small/cart-small';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { items } from '../../mocks/items';
-import { Link } from 'react-router-dom';
-import { APP_ROUTE } from '../../const/app-route';
-
-function Item(props) {
-  const { name, id, price, img } = props;
-  return (
-    <li className='main__item'>
-      <article className='item'>
-        <Link
-          to={`${APP_ROUTE.ITEM}/${id}`}
-          className='item__img'
-          style={{
-            background: `url(${img}) center / cover no-repeat`,
-          }}
-        ></Link>
-        <Link to={`${APP_ROUTE.ITEM}/${id}`} className='item__name navigation__link'>
-          {name}
-        </Link>
-        <div className='item__price'>{price} p.</div>
-        <div className='item__block'>
-          <div className='item__button button button_delete'>delete</div>
-          <div className='item__button button'>add</div>
-        </div>
-      </article>
-    </li>
-  );
-}
+import { fetchItemsAction } from '../../store/itemsReducer';
+import Item from './item';
 
 export default function Main() {
+  const dispatch = useDispatch();
+  const isItemsLoaded = useSelector((state) => state.ITEMS.isItemsLoaded);
+  const isItemLoaded = useSelector((state) => state.ITEMS.isItemLoaded);
+  const currentItem = useSelector((state) => state.ITEMS.currentItem);
+  const goods = useSelector((state) => state.ITEMS.items);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isItemsLoaded && !isItemLoaded) {
+        dispatch(fetchItemsAction(items));
+      }
+
+      if (!isItemsLoaded && isItemLoaded) {
+        try {
+          dispatch(
+            fetchItemsAction(
+              items.map((i) => (i.id === currentItem.id ? currentItem : i))
+            )
+          );
+        } catch (e) {
+          dispatch(fetchItemsAction(items));
+        }
+      }
+
+      if (!isItemsLoaded) {
+        dispatch(fetchItemsAction(items));
+        return;
+      }
+    }, 500);
+  }, [currentItem, dispatch, isItemLoaded, isItemsLoaded]);
+
+  if (!isItemsLoaded) {
+    return <div>loading...</div>;
+  }
+
   return (
     <>
       <CartSmall />
       <ul className='main__items'>
-        {items.map((item) => (
+        {goods.map((item) => (
           <Item {...item} key={item.id} />
         ))}
       </ul>

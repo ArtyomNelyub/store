@@ -33,6 +33,16 @@ body {
   position: relative;
 }
 
+.info {
+  border: 2px solid black;
+  border-radius: 5px;
+  text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  padding: 5px;
+}
+
 .button {
   text-transform: uppercase;
   font-weight: 700;
@@ -77,6 +87,15 @@ body {
 }
 .button_correct:active {
   background-color: rgb(206, 173, 105);
+}
+
+.button:disabled {
+  color: black;
+  border-color: black;
+  background-color: gray;
+}
+.button:disabled:hover {
+  box-shadow: none;
 }
 
 .header {
