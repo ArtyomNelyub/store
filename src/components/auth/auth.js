@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { users } from '../../mocks/users';
+import { users as mockUsers} from '../../mocks/users';
 import { setUserAction } from '../../store/userReducer';
 
 export default function Auth(props) {
@@ -10,10 +10,6 @@ export default function Auth(props) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const regExTest = /^[a-zA-Z0-9]+$/;
-
-  function closeModal() {
-    setIsModal(false);
-  }
 
   function inputHandler(e, cb) {
     if (regExTest.test(e.target.value)) {
@@ -25,9 +21,9 @@ export default function Auth(props) {
   }
 
   function loginActionHandler() {
-    users.forEach((user) => {
-      if (user.name === login && user.password === password) {
-        dispatch(setUserAction(user));
+    mockUsers.forEach((mockUser) => {
+      if (mockUser.name === login && mockUser.password === password) {
+        dispatch(setUserAction(mockUser));
         setError(false);
         setIsModal(false);
       } else {
@@ -39,7 +35,7 @@ export default function Auth(props) {
   return (
     <div className='modal'>
       <div className='modal__window'>
-        <div className='modal__close' onClick={closeModal}>
+        <div className='modal__close' onClick={()=>setIsModal(false)}>
           X
         </div>
         
@@ -76,7 +72,8 @@ export default function Auth(props) {
         <button className='button' onClick={loginActionHandler}>
           log in
         </button>
-        <button className='button button_delete' onClick={closeModal}>
+
+        <button className='button button_delete' onClick={()=>setIsModal(false)}>
           cancel
         </button>
         

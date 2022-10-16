@@ -1,7 +1,7 @@
 const itemsState = {
   items: [],
   cartItems: [],
-  currentItem: {},
+  currentItem: null,
   isItemsLoaded: false,
   isItemLoaded: false,
   itemPrice: 0,

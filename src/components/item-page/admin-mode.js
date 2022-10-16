@@ -1,9 +1,11 @@
 import { correctItemsAction } from '../../store/itemsReducer';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function AdminMode(props) {
-  const { setAdminMode, name, price, count, description, id } = props;
+  const { setAdminMode } = props;
+  const currentItem = useSelector((state) => state.ITEMS.currentItem);
+  const { name, price, id, description, count, img } = currentItem;
   const [newName, setName] = useState(name);
   const [newPrice, setPrice] = useState(price);
   const [newCount, setCount] = useState(count);
@@ -56,67 +58,76 @@ export default function AdminMode(props) {
     );
     setAdminMode(false);
   }
+  
   return (
-    <>
-      <div className='item-page__header'>
-        <div className='item-page__correct-block'>
-          <label htmlFor='name'>Название</label>
-          <input
-            type='text'
-            name='name'
-            id='name'
-            value={newName}
-            onChange={(e) => textHandler(e, setName)}
-            onBlur={(e) => textTrim(e, setName)}
-          />
+    <div className='item-page'>
+      <div
+        className='item-page__img'
+        style={{
+          background: `url(${img}) center / cover no-repeat`,
+        }}
+      ></div>
+      <div className='item-page__content'>
+        <div className='item-page__header'>
+          <div className='item-page__correct-block'>
+            <label htmlFor='name'>Название</label>
+            <input
+              type='text'
+              name='name'
+              id='name'
+              value={newName}
+              onChange={(e) => textHandler(e, setName)}
+              onBlur={(e) => textTrim(e, setName)}
+            />
+          </div>
+          <div className='item-page__correct-block'>
+            <label htmlFor='price'>Цена</label>
+            <input
+              type='number'
+              name='price'
+              id='price'
+              value={newPrice}
+              onChange={(e) => numberHandler(e, setPrice)}
+              onBlur={(e) => numberCorrector(e, setPrice)}
+            />
+          </div>
         </div>
         <div className='item-page__correct-block'>
-          <label htmlFor='price'>Цена</label>
+          <label htmlFor='count'>В наличии</label>
           <input
             type='number'
-            name='price'
-            id='price'
-            value={newPrice}
-            onChange={(e) => numberHandler(e, setPrice)}
-            onBlur={(e) => numberCorrector(e, setPrice)}
+            name='count'
+            id='count'
+            value={newCount}
+            onChange={(e) => numberHandler(e, setCount)}
+            onBlur={(e) => numberCorrector(e, setCount)}
           />
         </div>
-      </div>
-      <div className='item-page__correct-block'>
-        <label htmlFor='count'>В наличии</label>
-        <input
-          type='number'
-          name='count'
-          id='count'
-          value={newCount}
-          onChange={(e) => numberHandler(e, setCount)}
-          onBlur={(e) => numberCorrector(e, setCount)}
-        />
-      </div>
-      <div className='item-page__correct-block'>
-        <label htmlFor='price'>Описание</label>
-        <textarea
-          name='price'
-          id='price'
-          rows='7'
-          value={newDescription}
-          onChange={(e) => textHandler(e, setDescription)}
-          onBlur={(e) => textTrim(e, setDescription)}
-        ></textarea>
-      </div>
-      <div className='item-page__footer'>
-        <div
-          className='item-page__button button_delete button'
-          onClick={() => {
-            setAdminMode(false);
-          }}
-        >
-          отмена
+        <div className='item-page__correct-block'>
+          <label htmlFor='price'>Описание</label>
+          <textarea
+            name='price'
+            id='price'
+            rows='7'
+            value={newDescription}
+            onChange={(e) => textHandler(e, setDescription)}
+            onBlur={(e) => textTrim(e, setDescription)}
+          ></textarea>
         </div>
-        <div className='item-page__button button' onClick={saveHandler}>
-          сохранить
+        <div className='item-page__footer'>
+          <div
+            className='item-page__button button_delete button'
+            onClick={() => {
+              setAdminMode(false);
+            }}
+          >
+            отмена
+          </div>
+          <div className='item-page__button button' onClick={saveHandler}>
+            сохранить
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
