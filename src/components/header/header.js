@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logOutAction } from '../../store/userReducer';
 import { Link } from 'react-router-dom';
 import { APP_ROUTE } from '../../const/app-route';
+import { clearCartAction } from '../../store/itemsReducer';
 
 export default function Header(props) {
   const { setIsModal } = props;
@@ -32,7 +33,10 @@ export default function Header(props) {
               <div className='auth__link'>{user.name}</div>
               <div
                 className='auth__link'
-                onClick={() => dispatch(logOutAction())}
+                onClick={() => {
+                  dispatch(logOutAction());
+                  dispatch(clearCartAction());
+                }}
               >
                 Log-out
               </div>

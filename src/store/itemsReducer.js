@@ -12,8 +12,9 @@ const FETCH_ITEMS = 'FETCH_ITEMS';
 const SELECT_ITEM = 'SELECT_ITEM';
 const ADD_ITEM = 'ADD_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
-const CORRECT_CART = 'CORRECT_CART';
-const CORRECT_ITEMS = 'CORRECT_ITEMS';
+const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+const CLEAR_CART = 'CLEAR_CART';
+const CORRECT_ITEM = 'CORRECT_ITEM';
 
 export const itemsReducer = (state = itemsState, action) => {
   switch (action.type) {
@@ -60,7 +61,7 @@ export const itemsReducer = (state = itemsState, action) => {
         0
       );
       state.itemCount = state.cartItems.reduce(
-        (prev, item) => Number((item.count + prev).toFixed(2)),
+        (prev, item) => Number((item.count + prev).toFixed(0)),
         0
       );
 
@@ -102,13 +103,13 @@ export const itemsReducer = (state = itemsState, action) => {
         0
       );
       state.itemCount = state.cartItems.reduce(
-        (prev, item) => Number((item.count + prev).toFixed(2)),
+        (prev, item) => Number((item.count + prev).toFixed(0)),
         0
       );
 
       return { ...state };
 
-    case CORRECT_CART:
+    case REMOVE_ITEM_FROM_CART:
       state.cartItems = state.cartItems.filter((i) => {
         if (i.id === action.payload) {
           let index = state.items.findIndex((i) => i.id === action.payload);
@@ -128,7 +129,7 @@ export const itemsReducer = (state = itemsState, action) => {
       );
       return { ...state };
 
-    case CORRECT_ITEMS:
+    case CORRECT_ITEM:
       let indexCorrect = state.items.findIndex(
         (i) => i.id === action.payload.id
       );
@@ -157,6 +158,22 @@ export const itemsReducer = (state = itemsState, action) => {
 
       return { ...state };
 
+    case CLEAR_CART:
+      if (state.cartItems.length === 0) {
+        return {...state}
+      }
+
+      state.cartItems.forEach(cartItem => {
+        let index = state.items.findIndex(item => item.id === cartItem.id)
+        if (index !== -1) {
+          state.items[index].count += cartItem.count;
+        }
+      })
+
+      state.cartItems = [];
+
+      return {...state}
+
     default:
       return { ...state };
   }
@@ -166,8 +183,9 @@ export const fetchItemsAction = (payload) => ({ type: FETCH_ITEMS, payload });
 export const selectItemAction = (payload) => ({ type: SELECT_ITEM, payload });
 export const addItemAction = (payload) => ({ type: ADD_ITEM, payload });
 export const deleteItemAction = (payload) => ({ type: DELETE_ITEM, payload });
-export const correctCartAction = (payload) => ({ type: CORRECT_CART, payload });
-export const correctItemsAction = (payload) => ({
-  type: CORRECT_ITEMS,
+export const removeItemFromCartAction = (payload) => ({ type: REMOVE_ITEM_FROM_CART, payload });
+export const clearCartAction = () => ({ type: CLEAR_CART });
+export const correctItemAction = (payload) => ({
+  type: CORRECT_ITEM,
   payload,
 });

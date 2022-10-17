@@ -1,4 +1,4 @@
-import { correctItemsAction } from '../../store/itemsReducer';
+import { correctItemAction } from '../../store/itemsReducer';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -48,7 +48,7 @@ export default function AdminMode(props) {
 
   function saveHandler() {
     dispatch(
-      correctItemsAction({
+      correctItemAction({
         newName,
         newPrice,
         newCount,

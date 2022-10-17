@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { correctCartAction } from '../../store/itemsReducer';
+import { removeItemFromCartAction } from '../../store/itemsReducer';
 
 export default function Cart() {
   const cartItems = useSelector((state) => state.ITEMS.cartItems);
   const dispatch = useDispatch();
-  console.log(cartItems);
 
   return (
     <div className='cart-page'>
@@ -30,7 +29,7 @@ export default function Cart() {
               <button
                 className='cart-page__button'
                 onClick={() => {
-                  dispatch(correctCartAction(item.id));
+                  dispatch(removeItemFromCartAction(item.id));
                 }}
               ></button>
             </div>
