@@ -1,9 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { removeItemFromCartAction } from '../../store/itemsReducer';
 
-export default function Cart() {
-  const cartItems = useSelector((state) => state.ITEMS.cartItems);
-  const dispatch = useDispatch();
+export default function Cart():JSX.Element {
+  const cartItems = useAppSelector((state) => state.items.cartItems);
+  const dispatch = useAppDispatch();
 
   return (
     <div className='cart-page'>
@@ -29,7 +30,7 @@ export default function Cart() {
               <button
                 className='cart-page__button'
                 onClick={() => {
-                  dispatch(removeItemFromCartAction(item.id));
+                  dispatch(removeItemFromCartAction({id: item.id}));
                 }}
               ></button>
             </div>

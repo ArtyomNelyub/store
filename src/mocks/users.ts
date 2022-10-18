@@ -1,4 +1,6 @@
-export const users = [
+import { Users } from '../types/users';
+
+export const users: Users = [
   {
     name: 'Son',
     isAdmin: false,

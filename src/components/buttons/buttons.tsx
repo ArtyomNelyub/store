@@ -1,7 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactNode } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addItemAction, deleteItemAction } from '../../store/itemsReducer';
+import { Item } from '../../types/items';
 
-export default function Buttons(props) {
+type ButtonsProps = Item & {
+  countChange?: number,
+  children?: ReactNode 
+}
+
+export default function Buttons(props : ButtonsProps):JSX.Element {
   const {
     id,
     name,
@@ -13,9 +20,9 @@ export default function Buttons(props) {
     maxCount,
     children,
   } = props;
-  const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.USER.isAuth);
-  const user = useSelector((state) => state.USER.user);
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const user = useAppSelector((state) => state.user.user);
 
   function onClickHandlerAdd() {
     if (count === 0) {
@@ -57,7 +64,7 @@ export default function Buttons(props) {
   }
 
   if (isAuth && user !== null && user.isAdmin) {
-    return null;
+    return <></>;
   }
 
   return (

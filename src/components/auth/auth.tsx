@@ -1,11 +1,16 @@
+import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { users as mockUsers} from '../../mocks/users';
 import { setUserAction } from '../../store/userReducer';
 
-export default function Auth(props) {
+type AuthProps = {
+  setIsModal: (a:boolean) => void
+}
+
+export default function Auth(props: AuthProps): JSX.Element {
   const { setIsModal } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isError, setError] = useState(false); 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');

@@ -1,15 +1,16 @@
 import CartSmall from '../cart-small/cart-small';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { items as mockItems } from '../../mocks/items';
 import { fetchItemsAction } from '../../store/itemsReducer';
-import Item from './item';
+import ItemCard from './item-card';
+import React from 'react';
 
-export default function Main() {
-  const dispatch = useDispatch();
-  const isItemsLoaded = useSelector((state) => state.ITEMS.isItemsLoaded);
-  const currentItem = useSelector((state) => state.ITEMS.currentItem);
-  const items = useSelector((state) => state.ITEMS.items);
+export default function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isItemsLoaded = useAppSelector((state) => state.items.isItemsLoaded);
+  const currentItem = useAppSelector((state) => state.items.currentItem);
+  const items = useAppSelector((state) => state.items.items);
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,7 +38,7 @@ export default function Main() {
       <CartSmall />
       <ul className='main__items'>
         {items.map((item) => (
-          <Item {...item} key={item.id} />
+          <ItemCard {...item} key={item.id} />
         ))}
       </ul>
     </>

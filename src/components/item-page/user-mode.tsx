@@ -1,14 +1,25 @@
+import React, { LegacyRef, MutableRefObject } from 'react';
 import { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import Buttons from '../buttons/buttons';
+import { useAppSelector } from '../../hooks/index';
+import { Item } from '../../types/items';
 
-export default function UserMode(props) {
+type UserModeProps = {
+  adminMode: boolean;
+  setAdminMode: (a: boolean) => void;
+};
+
+export default function UserMode(props: UserModeProps): JSX.Element {
   const { adminMode, setAdminMode } = props;
-  const currentItem = useSelector((state) => state.ITEMS.currentItem);
-  const user = useSelector((state) => state.USER.user);
-  const { name, price, id, description, count, img, maxCount } = currentItem;
-  const [countInputValue, setCountInputValue] = useState(1);
-  const countInput = useRef({ value: '' });
+  const currentItem = useAppSelector((state) => state.items.currentItem);
+  const user = useAppSelector((state) => state.user.user);
+  const [countInputValue, setCountInputValue] = useState<number>(1);
+  // const countInput = useRef<
+  //   MutableRefObject<HTMLInputElement> | { value: string }
+  // >({ value: '' });
+  const countInput = useRef<any>(null);
+  const { name, price, id, description, count, img, maxCount } =
+    currentItem as Item;
 
   function countHandler(e) {
     if (e.target.value < 0) {

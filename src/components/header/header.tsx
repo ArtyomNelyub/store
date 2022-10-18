@@ -1,25 +1,30 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { logOutAction } from '../../store/userReducer';
 import { Link } from 'react-router-dom';
-import { APP_ROUTE } from '../../const/app-route';
+import { AppRoute } from '../../const/app-route';
 import { clearCartAction } from '../../store/itemsReducer';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-export default function Header(props) {
+type HeaderProps = {
+  setIsModal: (a:boolean) => void
+}
+
+export default function Header(props : HeaderProps):JSX.Element {
   const { setIsModal } = props;
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.USER.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
 
   return (
     <header className='header'>
       <div className='header__container'>
         <nav className='header__navigation navigation'>
-          <Link to={APP_ROUTE.MAIN} className='navigation__link'>
+          <Link to={AppRoute.MAIN} className='navigation__link'>
             Items
           </Link>
-          <Link to={APP_ROUTE.ABOUT} className='navigation__link'>
+          <Link to={AppRoute.ABOUT} className='navigation__link'>
             About us
           </Link>
-          <Link to={APP_ROUTE.CART} className='navigation__link'>
+          <Link to={AppRoute.CART} className='navigation__link'>
             Cart
           </Link>
         </nav>

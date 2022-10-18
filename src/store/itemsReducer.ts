@@ -1,4 +1,7 @@
-const itemsState = {
+import { Items, Item } from '../types/items';
+import { ItemsState, Action } from '../types/itemsReducerTypes';
+
+const defaultItemsState: ItemsState = {
   items: [],
   cartItems: [],
   currentItem: null,
@@ -8,27 +11,32 @@ const itemsState = {
   itemCount: 0,
 };
 
-const FETCH_ITEMS = 'FETCH_ITEMS';
-const SELECT_ITEM = 'SELECT_ITEM';
-const ADD_ITEM = 'ADD_ITEM';
-const DELETE_ITEM = 'DELETE_ITEM';
-const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
-const CLEAR_CART = 'CLEAR_CART';
-const CORRECT_ITEM = 'CORRECT_ITEM';
+export enum Actions {
+  SELECT_ITEM = 'SELECT_ITEM',
+  ADD_ITEM = 'ADD_ITEM',
+  CORRECT_ITEM = 'CORRECT_ITEM',
+  FETCH_ITEMS = 'FETCH_ITEMS',
+  REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
+  DELETE_ITEM = 'DELETE_ITEM',
+  CLEAR_CART = 'CLEAR_CART',
+}
 
-export const itemsReducer = (state = itemsState, action) => {
+export const itemsReducer = (
+  state = defaultItemsState,
+  action: Action
+): ItemsState => {
   switch (action.type) {
-    case FETCH_ITEMS:
+    case Actions.FETCH_ITEMS:
       return { ...state, items: action.payload, isItemsLoaded: true };
 
-    case SELECT_ITEM:
+    case Actions.SELECT_ITEM:
       return {
         ...state,
         isItemLoaded: true,
         currentItem: action.payload,
       };
 
-    case ADD_ITEM:
+    case Actions.ADD_ITEM:
       if (state.isItemsLoaded) {
         state.items = state.items.map((i) => {
           if (i.id === action.payload.id) {
@@ -40,7 +48,10 @@ export const itemsReducer = (state = itemsState, action) => {
       }
 
       if (state.isItemLoaded) {
-        if (state.currentItem.id === action.payload.id) {
+        if (
+          state.currentItem !== null &&
+          state.currentItem.id === action.payload.id
+        ) {
           state.currentItem = {
             ...state.currentItem,
             count: state.currentItem.count - action.payload.count,
@@ -67,7 +78,7 @@ export const itemsReducer = (state = itemsState, action) => {
 
       return { ...state };
 
-    case DELETE_ITEM:
+    case Actions.DELETE_ITEM:
       if (state.isItemsLoaded) {
         state.items = state.items.map((i) => {
           if (i.id === action.payload.id) {
@@ -79,7 +90,10 @@ export const itemsReducer = (state = itemsState, action) => {
       }
 
       if (state.isItemLoaded) {
-        if (state.currentItem.id === action.payload.id) {
+        if (
+          state.currentItem !== null &&
+          state.currentItem.id === action.payload.id
+        ) {
           state.currentItem = {
             ...state.currentItem,
             count: state.currentItem.count + action.payload.count,
@@ -109,14 +123,14 @@ export const itemsReducer = (state = itemsState, action) => {
 
       return { ...state };
 
-    case REMOVE_ITEM_FROM_CART:
+    case Actions.REMOVE_ITEM_FROM_CART:
       state.cartItems = state.cartItems.filter((i) => {
-        if (i.id === action.payload) {
-          let index = state.items.findIndex((i) => i.id === action.payload);
+        if (i.id === action.payload.id) {
+          let index = state.items.findIndex((i) => i.id === action.payload.id);
           state.items[index].count += i.count;
         }
 
-        return i.id !== action.payload;
+        return i.id !== action.payload.id;
       });
 
       state.itemPrice = state.cartItems.reduce(
@@ -129,7 +143,7 @@ export const itemsReducer = (state = itemsState, action) => {
       );
       return { ...state };
 
-    case CORRECT_ITEM:
+    case Actions.CORRECT_ITEM:
       let indexCorrect = state.items.findIndex(
         (i) => i.id === action.payload.id
       );
@@ -137,55 +151,108 @@ export const itemsReducer = (state = itemsState, action) => {
       if (indexCorrect !== -1) {
         state.items[indexCorrect] = {
           ...state.items[indexCorrect],
-          name: action.payload.newName,
-          price: action.payload.newPrice,
-          count: action.payload.newCount,
-          maxCount: action.payload.newCount,
-          description: action.payload.newDescription,
+          name: action.payload.name,
+          price: action.payload.price,
+          count: action.payload.count,
+          maxCount: action.payload.count,
+          description: action.payload.description,
         };
       }
 
-      if (state.currentItem.id === action.payload.id) {
+      if (
+        state.currentItem !== null &&
+        state.currentItem.id === action.payload.id
+      ) {
         state.currentItem = {
           ...state.currentItem,
-          name: action.payload.newName,
-          price: action.payload.newPrice,
-          count: action.payload.newCount,
-          maxCount: action.payload.newCount,
-          description: action.payload.newDescription,
+          name: action.payload.name,
+          price: action.payload.price,
+          count: action.payload.count,
+          maxCount: action.payload.count,
+          description: action.payload.description,
         };
       }
 
       return { ...state };
 
-    case CLEAR_CART:
+    case Actions.CLEAR_CART:
       if (state.cartItems.length === 0) {
-        return {...state}
+        return { ...state };
       }
 
-      state.cartItems.forEach(cartItem => {
-        let index = state.items.findIndex(item => item.id === cartItem.id)
+      state.cartItems.forEach((cartItem) => {
+        let index = state.items.findIndex((item) => item.id === cartItem.id);
         if (index !== -1) {
           state.items[index].count += cartItem.count;
         }
-      })
+      });
 
       state.cartItems = [];
 
-      return {...state}
+      return { ...state };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
-export const fetchItemsAction = (payload) => ({ type: FETCH_ITEMS, payload });
-export const selectItemAction = (payload) => ({ type: SELECT_ITEM, payload });
-export const addItemAction = (payload) => ({ type: ADD_ITEM, payload });
-export const deleteItemAction = (payload) => ({ type: DELETE_ITEM, payload });
-export const removeItemFromCartAction = (payload) => ({ type: REMOVE_ITEM_FROM_CART, payload });
-export const clearCartAction = () => ({ type: CLEAR_CART });
-export const correctItemAction = (payload) => ({
-  type: CORRECT_ITEM,
+export const clearCartAction = (): { type: Actions.CLEAR_CART } => ({
+  type: Actions.CLEAR_CART,
+});
+
+export const addItemAction = (
+  payload: Item
+): {
+  type: Actions.ADD_ITEM;
+  payload: Item;
+} => ({
+  type: Actions.ADD_ITEM,
+  payload,
+});
+
+export const selectItemAction = (
+  payload: Item | null
+): {
+  type: Actions.SELECT_ITEM;
+  payload: Item | null;
+} => ({
+  type: Actions.SELECT_ITEM,
+  payload,
+});
+
+export const correctItemAction = (
+  payload: Item
+): {
+  type: Actions.CORRECT_ITEM;
+  payload: Item;
+} => ({
+  type: Actions.CORRECT_ITEM,
+  payload,
+});
+
+export const fetchItemsAction = (
+  payload: Items
+): { type: Actions.FETCH_ITEMS; payload: Items } => ({
+  type: Actions.FETCH_ITEMS,
+  payload,
+});
+
+export const deleteItemAction = (
+  payload: Pick<Item, 'id' | 'count'>
+): {
+  type: Actions.DELETE_ITEM;
+  payload: Pick<Item, 'id' | 'count'>;
+} => ({
+  type: Actions.DELETE_ITEM,
+  payload,
+});
+
+export const removeItemFromCartAction = (
+  payload: Pick<Item, 'id'>
+): {
+  type: Actions.REMOVE_ITEM_FROM_CART;
+  payload: Pick<Item, 'id'>;
+} => ({
+  type: Actions.REMOVE_ITEM_FROM_CART,
   payload,
 });

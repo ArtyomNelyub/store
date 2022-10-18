@@ -1,5 +1,8 @@
 import pic from '../img/Mech_bronzovogo_veka.webp';
-export const items = [
+import { Items } from '../types/items';
+
+
+export const items: Items = [
   {
     id: 1,
     name: 'Sword',

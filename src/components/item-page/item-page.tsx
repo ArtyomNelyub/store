@@ -1,27 +1,28 @@
 import CartSmall from '../cart-small/cart-small';
 import { useParams, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { items as mockItems } from '../../mocks/items';
 import { selectItemAction } from '../../store/itemsReducer';
-import { APP_ROUTE } from '../../const/app-route';
+import { AppRoute } from '../../const/app-route';
 import AdminMode from './admin-mode';
 import UserMode from './user-mode';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Item } from '../../types/items';
 
-export default function ItemPage() {
+export default function ItemPage(): JSX.Element {
   const { id: currentId } = useParams();
-  const dispatch = useDispatch();
-  const items = useSelector((state) => state.ITEMS.items);
-  const currentItem = useSelector((state) => state.ITEMS.currentItem);
-  const isItemsLoaded = useSelector((state) => state.ITEMS.isItemsLoaded);
-  const isItemLoaded = useSelector((state) => state.ITEMS.isItemLoaded);
-  const [adminMode, setAdminMode] = useState(false);
-
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.items.items);
+  const currentItem = useAppSelector((state) => state.items.currentItem);
+  const isItemsLoaded = useAppSelector((state) => state.items.isItemsLoaded);
+  const isItemLoaded = useAppSelector((state) => state.items.isItemLoaded);
+  const [adminMode, setAdminMode] = useState<boolean>(false);
+  const item: Item | undefined = items.find((i) => i.id === Number(currentId));
+  
   useEffect(() => {
-    if (isItemsLoaded) {
-      dispatch(
-        selectItemAction(items.find((i) => i.id === Number(currentId)))
-      );
+    if (isItemsLoaded && item !== undefined) {
+      dispatch(selectItemAction(item));
     } else {
       setTimeout(() => {
         let index = mockItems.findIndex((i) => i.id === Number(currentId));
@@ -32,14 +33,14 @@ export default function ItemPage() {
         }
       }, 500);
     }
-  }, [currentId, dispatch, isItemsLoaded, items]);
+  }, [currentId, dispatch, isItemsLoaded, item, items]);
 
   if (!isItemLoaded) {
     return <div>Loading...</div>;
   }
 
   if (currentItem === null) {
-    return <Navigate to={APP_ROUTE.NOT_FOUND} />;
+    return <Navigate to={AppRoute.NOT_FOUND} />;
   }
 
   return (

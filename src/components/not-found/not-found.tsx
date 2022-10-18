@@ -1,5 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-export default function NotFound() {
+
+export default function NotFound(): JSX.Element {
   return (
     <div className='main'>
       <div className='main__container'>

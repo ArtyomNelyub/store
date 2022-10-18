@@ -1,16 +1,24 @@
 import { correctItemAction } from '../../store/itemsReducer';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks';
+import React from 'react';
+import { Item } from '../../types/items';
 
-export default function AdminMode(props) {
+type AdminModeProps = {
+  setAdminMode: (adminMode: boolean) => void;
+};
+
+export default function AdminMode(props: AdminModeProps): JSX.Element {
   const { setAdminMode } = props;
-  const currentItem = useSelector((state) => state.ITEMS.currentItem);
-  const { name, price, id, description, count, img } = currentItem;
+  const currentItem = useAppSelector((state) => state.items.currentItem);
+
+  const dispatch = useDispatch();
+  const { name, price, id, description, count, img } = currentItem as Item;
   const [newName, setName] = useState(name);
   const [newPrice, setPrice] = useState(price);
   const [newCount, setCount] = useState(count);
   const [newDescription, setDescription] = useState(description);
-  const dispatch = useDispatch();
 
   function numberHandler(e, cb) {
     const regExNumber = /(\d)|(\.)$/;
@@ -49,16 +57,18 @@ export default function AdminMode(props) {
   function saveHandler() {
     dispatch(
       correctItemAction({
-        newName,
-        newPrice,
-        newCount,
-        newDescription,
+        name: newName,
         id,
+        price: newPrice,
+        img: img,
+        description: newDescription,
+        count: newCount,
+        maxCount: newCount,
       })
     );
     setAdminMode(false);
   }
-  
+
   return (
     <div className='item-page'>
       <div
@@ -108,7 +118,7 @@ export default function AdminMode(props) {
           <textarea
             name='price'
             id='price'
-            rows='7'
+            rows={7}
             value={newDescription}
             onChange={(e) => textHandler(e, setDescription)}
             onBlur={(e) => textTrim(e, setDescription)}
