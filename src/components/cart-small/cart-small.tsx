@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector } from '../../hooks';
 
 export default function CartSmall(): JSX.Element {

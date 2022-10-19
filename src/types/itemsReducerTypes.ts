@@ -1,5 +1,5 @@
 import { Items, Item } from './items';
-import { Actions } from '../store/itemsReducer';
+import { Actions } from '../app-store/itemsReducer';
 
 export type ItemsState = {
   items: Items;

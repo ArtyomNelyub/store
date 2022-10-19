@@ -1,8 +1,7 @@
-import { correctItemAction } from '../../store/itemsReducer';
+import { correctItemAction } from '../../app-store/itemsReducer';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
-import React from 'react';
 import { Item } from '../../types/items';
 
 type AdminModeProps = {
@@ -15,15 +14,18 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
 
   const dispatch = useDispatch();
   const { name, price, id, description, count, img } = currentItem as Item;
-  const [newName, setName] = useState(name);
-  const [newPrice, setPrice] = useState(price);
-  const [newCount, setCount] = useState(count);
-  const [newDescription, setDescription] = useState(description);
+  const [newName, setName] = useState<string>(name);
+  const [newPrice, setPrice] = useState<number>(price);
+  const [newCount, setCount] = useState<number>(count);
+  const [newDescription, setDescription] = useState<string>(description);
 
-  function numberHandler(e, cb) {
+  function numberHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    cb: (numb: number) => void
+  ) {
     const regExNumber = /(\d)|(\.)$/;
     if (regExNumber.test(e.target.value)) {
-      cb(e.target.value);
+      cb(Number(e.target.value));
     }
     if (e.target.value === '') {
       cb(0);
@@ -32,12 +34,20 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
     return;
   }
 
-  function numberCorrector(e, cb) {
-    cb(parseFloat(e.target.value).toFixed(2).toString());
+  function numberCorrector(
+    e: React.ChangeEvent<HTMLInputElement>,
+    cb: (numb: number) => void
+  ) {
+    cb(Number(parseFloat(e.target.value).toFixed(2)));
     return;
   }
 
-  function textHandler(e, cb) {
+  function textHandler(
+    e:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    cb: (numb: string) => void
+  ) {
     const regExText = /^[a-zA-Z0-9\s]+$/;
     if (regExText.test(e.target.value)) {
       cb(e.target.value);
@@ -49,7 +59,12 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
     return;
   }
 
-  function textTrim(e, cb) {
+  function textTrim(
+    e:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    cb: (numb: string) => void
+  ) {
     cb(e.target.value.trim());
     return;
   }

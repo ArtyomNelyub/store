@@ -6,7 +6,6 @@ import Layout from './layout/layout';
 import NotFound from './not-found/not-found';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../const/app-route';
-import React from 'react';
 
 function App(): JSX.Element {
   return (

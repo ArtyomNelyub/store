@@ -1,10 +1,9 @@
 import CartSmall from '../cart-small/cart-small';
+import ItemCard from './item-card';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { items as mockItems } from '../../mocks/items';
-import { fetchItemsAction } from '../../store/itemsReducer';
-import ItemCard from './item-card';
-import React from 'react';
+import { fetchItemsAction } from '../../app-store/itemsReducer';
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();

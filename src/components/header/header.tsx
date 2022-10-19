@@ -1,8 +1,7 @@
-import { logOutAction } from '../../store/userReducer';
+import { logOutAction } from '../../app-store/userReducer';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
-import { clearCartAction } from '../../store/itemsReducer';
-import React from 'react';
+import { clearCartAction } from '../../app-store/itemsReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderProps = {

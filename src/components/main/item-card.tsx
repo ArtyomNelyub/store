@@ -1,12 +1,10 @@
-import React from 'react';
+import Buttons from '../buttons/buttons';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
-import Buttons from '../buttons/buttons';
 import { Item } from '../../types/items';
 
 export default function ItemCard(props: Item): JSX.Element {
-  const { name, id, price, img, description, count, maxCount } = props;
-
+  const { name, id, price, img, description, count, maxCount } = props; 
   return (
     <li className='main__item'>
       <article className='item'>

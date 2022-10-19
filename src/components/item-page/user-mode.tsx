@@ -1,6 +1,5 @@
-import React, { LegacyRef, MutableRefObject } from 'react';
-import { useState, useRef } from 'react';
 import Buttons from '../buttons/buttons';
+import { useState, useRef } from 'react';
 import { useAppSelector } from '../../hooks/index';
 import { Item } from '../../types/items';
 
@@ -11,23 +10,20 @@ type UserModeProps = {
 
 export default function UserMode(props: UserModeProps): JSX.Element {
   const { adminMode, setAdminMode } = props;
-  const currentItem = useAppSelector((state) => state.items.currentItem);
   const user = useAppSelector((state) => state.user.user);
-  const [countInputValue, setCountInputValue] = useState<number>(1);
-  // const countInput = useRef<
-  //   MutableRefObject<HTMLInputElement> | { value: string }
-  // >({ value: '' });
-  const countInput = useRef<any>(null);
+  const currentItem = useAppSelector((state) => state.items.currentItem);
   const { name, price, id, description, count, img, maxCount } =
     currentItem as Item;
+  const [countInputValue, setCountInputValue] = useState<number>(1);
+  const countInput = useRef<HTMLInputElement | null>(null);
 
-  function countHandler(e) {
-    if (e.target.value < 0) {
-      e.target.value = 0;
+  function countHandler(e: React.ChangeEvent<HTMLInputElement>): void {
+    if (Number(e.target.value) < 0) {
+      e.target.value = '0';
       return;
     }
-    if (e.target.value >= count) {
-      e.target.value = count;
+    if (Number(e.target.value) >= count) {
+      e.target.value = count.toString();
       return;
     }
 
@@ -39,8 +35,8 @@ export default function UserMode(props: UserModeProps): JSX.Element {
       <div
         className='item-page__img'
         style={{
-          background: `url(${img}) center / cover no-repeat`,
-        }}
+            background: `url(${img}) center / cover no-repeat`,
+          }}
       ></div>
       <div className='item-page__content'>
         <div className='item-page__header'>

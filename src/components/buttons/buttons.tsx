@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addItemAction, deleteItemAction } from '../../store/itemsReducer';
+import { addItemAction, deleteItemAction } from '../../app-store/itemsReducer';
 import { Item } from '../../types/items';
 
 type ButtonsProps = Item & {
@@ -24,7 +24,7 @@ export default function Buttons(props : ButtonsProps):JSX.Element {
   const isAuth = useAppSelector((state) => state.user.isAuth);
   const user = useAppSelector((state) => state.user.user);
 
-  function onClickHandlerAdd() {
+  function onClickHandlerAdd():void {
     if (count === 0) {
       return;
     }
@@ -45,7 +45,7 @@ export default function Buttons(props : ButtonsProps):JSX.Element {
     );
   }
 
-  function onClickHandlerDelete() {
+  function onClickHandlerDelete():void {
     if (count === maxCount) {
       return;
     }

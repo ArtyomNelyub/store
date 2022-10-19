@@ -1,14 +1,14 @@
 import CartSmall from '../cart-small/cart-small';
+import AdminMode from './admin-mode';
+import UserMode from './user-mode';
 import { useParams, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { items as mockItems } from '../../mocks/items';
-import { selectItemAction } from '../../store/itemsReducer';
+import { selectItemAction } from '../../app-store/itemsReducer';
 import { AppRoute } from '../../const/app-route';
-import AdminMode from './admin-mode';
-import UserMode from './user-mode';
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Item } from '../../types/items';
+// import '../style/index.css';
 
 export default function ItemPage(): JSX.Element {
   const { id: currentId } = useParams();

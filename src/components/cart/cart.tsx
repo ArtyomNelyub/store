@@ -1,6 +1,5 @@
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { removeItemFromCartAction } from '../../store/itemsReducer';
+import { removeItemFromCartAction } from '../../app-store/itemsReducer';
 
 export default function Cart():JSX.Element {
   const cartItems = useAppSelector((state) => state.items.cartItems);

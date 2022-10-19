@@ -1,5 +1,5 @@
 import { User } from './users';
-import { Actions } from '../store/userReducer';
+import { Actions } from '../app-store/userReducer';
 
 export type UserState = {
   user: null | User;
