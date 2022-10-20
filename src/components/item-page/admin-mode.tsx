@@ -19,26 +19,33 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
   const [newCount, setCount] = useState<number>(count);
   const [newDescription, setDescription] = useState<string>(description);
 
-  function numberHandler(
+  function priceHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     cb: (numb: number) => void
   ) {
-    const regExNumber = /(\d)|(\.)$/;
+    const regExNumber = /^(?=.*\d)\d*(?:\.\d{0,2})?$/;
+    if (Number(e.target.value) < 0 || e.target.value === '') {
+      cb(0);
+    }
     if (regExNumber.test(e.target.value)) {
       cb(Number(e.target.value));
-    }
-    if (e.target.value === '') {
-      cb(0);
     }
 
     return;
   }
 
-  function numberCorrector(
+  function countHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     cb: (numb: number) => void
   ) {
-    cb(Number(parseFloat(e.target.value).toFixed(2)));
+    
+    if (/[0-9]+/.test(e.target.value)) {
+      cb(Number(e.target.value));
+    }
+    if (Number(e.target.value) < 0 || e.target.value === '') {
+      cb(0);
+    }
+
     return;
   }
 
@@ -48,7 +55,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
       | React.ChangeEvent<HTMLInputElement>,
     cb: (numb: string) => void
   ) {
-    const regExText = /^[a-zA-Z0-9\s]+$/;
+    const regExText = /^[a-zA-Z0-9\s.,!?]+$/;
     if (regExText.test(e.target.value)) {
       cb(e.target.value);
     }
@@ -112,8 +119,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
               name='price'
               id='price'
               value={newPrice}
-              onChange={(e) => numberHandler(e, setPrice)}
-              onBlur={(e) => numberCorrector(e, setPrice)}
+              onChange={(e) => priceHandler(e, setPrice)}
             />
           </div>
         </div>
@@ -124,8 +130,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
             name='count'
             id='count'
             value={newCount}
-            onChange={(e) => numberHandler(e, setCount)}
-            onBlur={(e) => numberCorrector(e, setCount)}
+            onChange={(e) => countHandler(e, setCount)}
           />
         </div>
         <div className='item-page__correct-block'>

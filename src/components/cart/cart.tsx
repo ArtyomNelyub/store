@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { removeItemFromCartAction } from '../../app-store/itemsReducer';
+import { removeItemFromCartAction, updateSmallCartAction } from '../../app-store/itemsReducer';
 
 export default function Cart():JSX.Element {
   const cartItems = useAppSelector((state) => state.items.cartItems);
@@ -16,6 +16,7 @@ export default function Cart():JSX.Element {
         <div className='cart-page__sum cart-page__title cell'>Sum</div>
         <div className='cart-page__del cart-page__title cell'>Delete</div>
       </div>
+
       {cartItems.map((item, index) => {
         return (
           <div className='cart-page__row' key={item.id}>
@@ -30,12 +31,14 @@ export default function Cart():JSX.Element {
                 className='cart-page__button'
                 onClick={() => {
                   dispatch(removeItemFromCartAction({id: item.id}));
+                  dispatch(updateSmallCartAction());
                 }}
               ></button>
             </div>
           </div>
         );
       })}
+      
     </div>
   );
 }

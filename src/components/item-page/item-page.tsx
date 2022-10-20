@@ -8,7 +8,6 @@ import { selectItemAction } from '../../app-store/itemsReducer';
 import { AppRoute } from '../../const/app-route';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Item } from '../../types/items';
-// import '../style/index.css';
 
 export default function ItemPage(): JSX.Element {
   const { id: currentId } = useParams();

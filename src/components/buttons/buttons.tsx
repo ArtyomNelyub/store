@@ -1,30 +1,33 @@
 import { ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addItemAction, deleteItemAction } from '../../app-store/itemsReducer';
+import {
+  addItemAction,
+  deleteItemAction,
+  updateSmallCartAction,
+} from '../../app-store/itemsReducer';
 import { Item } from '../../types/items';
 
 type ButtonsProps = Item & {
-  countChange?: number,
-  children?: ReactNode 
-}
+  countChange?: number;
+  children?: ReactNode;
+};
 
-export default function Buttons(props : ButtonsProps):JSX.Element {
-  const {
-    id,
-    name,
-    price,
-    img,
-    description,
-    count,
-    countChange = 1,
-    maxCount,
-    children,
-  } = props;
+export default function Buttons({
+  id,
+  name,
+  price,
+  img,
+  description,
+  count,
+  countChange = 1,
+  maxCount,
+  children,
+}: ButtonsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector((state) => state.user.isAuth);
   const user = useAppSelector((state) => state.user.user);
 
-  function onClickHandlerAdd():void {
+  function onClickHandlerAdd(): void {
     if (count === 0) {
       return;
     }
@@ -43,9 +46,10 @@ export default function Buttons(props : ButtonsProps):JSX.Element {
         maxCount,
       })
     );
+    dispatch(updateSmallCartAction());
   }
 
-  function onClickHandlerDelete():void {
+  function onClickHandlerDelete(): void {
     if (count === maxCount) {
       return;
     }
@@ -53,6 +57,7 @@ export default function Buttons(props : ButtonsProps):JSX.Element {
       return;
     }
     dispatch(deleteItemAction({ id, count: countChange }));
+    dispatch(updateSmallCartAction());
   }
 
   if (!isAuth) {
@@ -72,15 +77,17 @@ export default function Buttons(props : ButtonsProps):JSX.Element {
       <button
         className='item__button button button_delete'
         onClick={onClickHandlerDelete}
-        disabled={count === maxCount}
+        disabled={count === maxCount || maxCount - count < countChange}
       >
         delete
       </button>
+
       {children}
+
       <button
         className='item__button button'
         onClick={onClickHandlerAdd}
-        disabled={count <= 0}
+        disabled={countChange > count || count <= 0}
       >
         {count <= 0 ? 'none' : 'add'}
       </button>

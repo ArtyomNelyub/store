@@ -22,12 +22,13 @@ export default function UserMode(props: UserModeProps): JSX.Element {
       e.target.value = '0';
       return;
     }
-    if (Number(e.target.value) >= count) {
+    if (Number(e.target.value) > maxCount) {
       e.target.value = count.toString();
       return;
     }
 
     setCountInputValue(Number(e.target.value));
+
   }
 
   return (
@@ -35,8 +36,8 @@ export default function UserMode(props: UserModeProps): JSX.Element {
       <div
         className='item-page__img'
         style={{
-            background: `url(${img}) center / cover no-repeat`,
-          }}
+          background: `url(${img}) center / cover no-repeat`,
+        }}
       ></div>
       <div className='item-page__content'>
         <div className='item-page__header'>

@@ -19,6 +19,8 @@ export enum Actions {
   REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
   DELETE_ITEM = 'DELETE_ITEM',
   CLEAR_CART = 'CLEAR_CART',
+  UPDATE_SMALL_CART = 'UPDATE_SMALL_CART',
+  CLEAR_ITEMS = 'CLEAR_ITEMS',
 }
 
 export const itemsReducer = (
@@ -28,6 +30,9 @@ export const itemsReducer = (
   switch (action.type) {
     case Actions.FETCH_ITEMS:
       return { ...state, items: action.payload, isItemsLoaded: true };
+
+    case Actions.CLEAR_ITEMS:
+      return { ...state, items: [], isItemsLoaded: false };
 
     case Actions.SELECT_ITEM:
       return {
@@ -67,15 +72,6 @@ export const itemsReducer = (
         state.cartItems.push(action.payload);
       }
 
-      state.itemPrice = state.cartItems.reduce(
-        (prev, item) => Number((item.count * item.price + prev).toFixed(2)),
-        0
-      );
-      state.itemCount = state.cartItems.reduce(
-        (prev, item) => Number((item.count + prev).toFixed(0)),
-        0
-      );
-
       return { ...state };
 
     case Actions.DELETE_ITEM:
@@ -112,35 +108,26 @@ export const itemsReducer = (
         }
       }
 
-      state.itemPrice = state.cartItems.reduce(
-        (prev, item) => Number((item.count * item.price + prev).toFixed(2)),
-        0
-      );
-      state.itemCount = state.cartItems.reduce(
-        (prev, item) => Number((item.count + prev).toFixed(0)),
-        0
-      );
-
       return { ...state };
 
     case Actions.REMOVE_ITEM_FROM_CART:
       state.cartItems = state.cartItems.filter((i) => {
         if (i.id === action.payload.id) {
           let index = state.items.findIndex((i) => i.id === action.payload.id);
-          state.items[index].count += i.count;
+          if (index !== -1) {
+            state.items[index].count += i.count;
+          }
+          if (
+            state.currentItem !== null &&
+            state.currentItem.id === action.payload.id
+          ) {
+            state.currentItem.count += i.count;
+          }
         }
 
         return i.id !== action.payload.id;
       });
 
-      state.itemPrice = state.cartItems.reduce(
-        (prev, item) => Number((item.count * item.price + prev).toFixed(2)),
-        0
-      );
-      state.itemCount = state.cartItems.reduce(
-        (prev, item) => Number((item.count + prev).toFixed(2)),
-        0
-      );
       return { ...state };
 
     case Actions.CORRECT_ITEM:
@@ -191,6 +178,17 @@ export const itemsReducer = (
 
       return { ...state };
 
+    case Actions.UPDATE_SMALL_CART:
+      state.itemPrice = state.cartItems.reduce(
+        (prev, item) => Number((item.count * item.price + prev).toFixed(2)),
+        0
+      );
+      state.itemCount = state.cartItems.reduce(
+        (prev, item) => Number((item.count + prev).toFixed(2)),
+        0
+      );
+      return { ...state };
+
     default:
       return state;
   }
@@ -198,6 +196,15 @@ export const itemsReducer = (
 
 export const clearCartAction = (): { type: Actions.CLEAR_CART } => ({
   type: Actions.CLEAR_CART,
+});
+export const clearItemsAction = (): { type: Actions.CLEAR_ITEMS } => ({
+  type: Actions.CLEAR_ITEMS,
+});
+
+export const updateSmallCartAction = (): {
+  type: Actions.UPDATE_SMALL_CART;
+} => ({
+  type: Actions.UPDATE_SMALL_CART,
 });
 
 export const addItemAction = (

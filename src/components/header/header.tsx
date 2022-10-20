@@ -1,7 +1,7 @@
 import { logOutAction } from '../../app-store/userReducer';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
-import { clearCartAction } from '../../app-store/itemsReducer';
+import { clearCartAction, clearItemsAction, updateSmallCartAction } from '../../app-store/itemsReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderProps = {
@@ -40,6 +40,8 @@ export default function Header(props : HeaderProps):JSX.Element {
                 onClick={() => {
                   dispatch(logOutAction());
                   dispatch(clearCartAction());
+                  dispatch(clearItemsAction())
+                  dispatch(updateSmallCartAction());
                 }}
               >
                 Log-out
