@@ -11,7 +11,7 @@ describe('Testing cart component', () => {
 
   test('Mounting empty cart component', () => {
     render(renderWithRedux(<Cart />, defaultItemsState, defaultUserState));
-    const cartBlock = screen.getByTestId(/cart-block/i);
+    const cartBlock = screen.getByTestId('cart-block');
     const firstItemRow = screen.queryByTestId(`item-field-${testid}`);
     expect(cartBlock).toBeInTheDocument();
     expect(firstItemRow).toBeNull();

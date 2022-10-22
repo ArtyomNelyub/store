@@ -39,7 +39,7 @@ describe('Testing item page component', () => {
       )
     );
 
-    expect(screen.getByTestId(/not-found-page/i)).toBeInTheDocument();
+    expect(screen.getByTestId('not-found-page')).toBeInTheDocument();
   });
 
   test('Rendering item', () => {
@@ -54,7 +54,7 @@ describe('Testing item page component', () => {
     );
 
     
-    const itemBlock = screen.getByTestId(/item-block/i);
+    const itemBlock = screen.getByTestId('item-block');
 
     expect(itemBlock).toBeInTheDocument();
   });
@@ -73,7 +73,7 @@ describe('Testing item page component', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
   });
 
   test('Render admin-mode after click correct-button if user is admin', () => {
@@ -90,9 +90,9 @@ describe('Testing item page component', () => {
       )
     );
 
-    const correctButton = screen.getByTestId(/correct-button/i);
+    const correctButton = screen.getByTestId('correct-button');
     expect(correctButton).toBeInTheDocument();
     userEvent.click(correctButton);
-    expect(screen.getByTestId(/admin-mode/i)).toBeInTheDocument();
+    expect(screen.getByTestId('admin-mode')).toBeInTheDocument();
   });
 });

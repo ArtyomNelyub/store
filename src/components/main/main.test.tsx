@@ -34,7 +34,7 @@ describe('Testing main', () => {
     );
 
     const preLoader = screen.queryByText(/loading/i);
-    const itemsBlock = screen.getByTestId(/items-block/i);
+    const itemsBlock = screen.getByTestId('items-block');
     expect(preLoader).toBeNull();
     expect(itemsBlock).toBeInTheDocument();
   });

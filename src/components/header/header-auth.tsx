@@ -1,12 +1,15 @@
 import { logOutAction } from '../../app-store/userReducer';
-import { clearItemsAction, updateSmallCartAction } from '../../app-store/itemsReducer';
+import {
+  clearItemsAction,
+  updateSmallCartAction,
+} from '../../app-store/itemsReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderAuthProps = {
-  setIsModal: (a:boolean) => void
-}
+  setIsModal: (a: boolean) => void;
+};
 
-export default function HeaderAuth(props: HeaderAuthProps):JSX.Element {
+export default function HeaderAuth(props: HeaderAuthProps): JSX.Element {
   const { setIsModal } = props;
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
@@ -14,12 +17,16 @@ export default function HeaderAuth(props: HeaderAuthProps):JSX.Element {
   return (
     <div className='header__auth auth'>
       {user === null ? (
-        <div className='auth__link' onClick={() => setIsModal(true)} data-testid='login-text'>
+        <div
+          className='auth__link'
+          onClick={() => setIsModal(true)}
+          data-testid='login-text'
+        >
           Log in
         </div>
       ) : (
         <>
-          <div className='auth__link'>{user.name}</div>
+          <div className='auth__link' data-testid='user-name-in-header'>{user.name}</div>
           <div
             className='auth__link'
             onClick={() => {

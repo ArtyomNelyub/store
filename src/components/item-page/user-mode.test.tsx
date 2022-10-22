@@ -19,11 +19,11 @@ describe('Testing user mode', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
-    const countField = screen.getByTestId(/item-count-in-store/i);
-    const countInputField = screen.getByTestId(/input-count-item/i);
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
+    const countField = screen.getByTestId('item-count-in-store');
+    const countInputField = screen.getByTestId('input-count-item');
     expect(addButton).toBeInTheDocument();
     expect(deleteButton).toBeInTheDocument();
     expect(countField).toBeInTheDocument();
@@ -41,11 +41,11 @@ describe('Testing user mode', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
-    const countField = screen.getByTestId(/item-count-in-store/i);
-    const countInputField = screen.getByTestId(/input-count-item/i);
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
+    const countField = screen.getByTestId('item-count-in-store');
+    const countInputField = screen.getByTestId('input-count-item');
     userEvent.type(countInputField, '10');
     userEvent.click(addButton);
 
@@ -70,10 +70,10 @@ describe('Testing user mode', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
-    const countField = screen.getByTestId(/item-count-in-store/i);
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
+    const countField = screen.getByTestId('item-count-in-store');
 
     userEvent.click(addButton);
 
@@ -98,10 +98,10 @@ describe('Testing user mode', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
-    const countField = screen.getByTestId(/item-count-in-store/i);
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
+    const countField = screen.getByTestId('item-count-in-store');
 
     userEvent.click(deleteButton);
 
@@ -126,11 +126,11 @@ describe('Testing user mode', () => {
       )
     );
 
-    expect(screen.getByTestId(/user-mode/i)).toBeInTheDocument();
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
-    const countField = screen.getByTestId(/item-count-in-store/i);
-    const countInputField = screen.getByTestId(/input-count-item/i);
+    expect(screen.getByTestId('user-mode')).toBeInTheDocument();
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
+    const countField = screen.getByTestId('item-count-in-store');
+    const countInputField = screen.getByTestId('input-count-item');
     userEvent.type(countInputField, '5');
     userEvent.click(deleteButton);
 

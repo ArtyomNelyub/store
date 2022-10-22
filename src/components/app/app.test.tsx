@@ -11,9 +11,9 @@ describe('Test app', () => {
           <App />
         </MemoryRouter>
       );
-      const aboutLink = await screen.findByTestId(/about-link/i);
+      const aboutLink = await screen.findByTestId('about-link');
       userEvent.click(aboutLink);
-      const aboutBlock = await screen.findByTestId(/about-block/i);
+      const aboutBlock = await screen.findByTestId('about-block');
       expect(aboutBlock).toBeInTheDocument();
     });
 
@@ -23,9 +23,9 @@ describe('Test app', () => {
           <App />
         </MemoryRouter>
       );
-      const mainLink = await screen.findByTestId(/items-block/i);
+      const mainLink = await screen.findByTestId('items-block');
       userEvent.click(mainLink);
-      const mainBlock = await screen.findByTestId(/items-block/i);
+      const mainBlock = await screen.findByTestId('items-block');
       expect(mainBlock).toBeInTheDocument();
     });
 
@@ -35,9 +35,9 @@ describe('Test app', () => {
           <App />
         </MemoryRouter>
       );
-      const cartLink = await screen.findByTestId(/cart-link/i);
+      const cartLink = await screen.findByTestId('cart-link');
       userEvent.click(cartLink);
-      const cartBlock = await screen.findByTestId(/cart-block/i);
+      const cartBlock = await screen.findByTestId('cart-block');
       expect(cartBlock).toBeInTheDocument();
     });
 
@@ -47,7 +47,7 @@ describe('Test app', () => {
           <App />
         </MemoryRouter>
       );
-      expect(screen.getByTestId(/not-found-page/i)).toBeInTheDocument();
+      expect(screen.getByTestId('not-found-page')).toBeInTheDocument();
     });
 
     test('item-page', async () => {
@@ -56,7 +56,7 @@ describe('Test app', () => {
           <App />
         </MemoryRouter>
       );
-      const itemBlock = await screen.findByTestId(/item-block/i);
+      const itemBlock = await screen.findByTestId('item-block');
       expect(itemBlock).toBeInTheDocument();
     });
   });

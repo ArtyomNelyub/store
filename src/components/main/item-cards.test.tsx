@@ -25,7 +25,7 @@ describe('Testing item cards component', () => {
       )
     );
 
-    const itemCard = screen.getByTestId(/item-10/i);
+    const itemCard = screen.getByTestId('item-10');
     expect(itemCard).toBeInTheDocument();
   });
 
@@ -47,9 +47,9 @@ describe('Testing item cards component', () => {
       )
     );
 
-    const itemImage = screen.getByTestId(/item-image/i);
+    const itemImage = screen.getByTestId('item-image');
     userEvent.click(itemImage);
-    const itemBlock =screen.getByTestId(/item-block/i)
+    const itemBlock =screen.getByTestId('item-block')
     expect(itemBlock).toBeInTheDocument();
   });
 
@@ -71,9 +71,9 @@ describe('Testing item cards component', () => {
       )
     );
 
-    const itemName = screen.getByTestId(/item-name/i);
+    const itemName = screen.getByTestId('item-name');
     userEvent.click(itemName);
-    const itemBlock =screen.getByTestId(/item-block/i)
+    const itemBlock =screen.getByTestId('item-block')
     expect(itemBlock).toBeInTheDocument();
   });
 });

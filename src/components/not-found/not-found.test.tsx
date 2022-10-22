@@ -21,11 +21,11 @@ test('renders learn react link', async () => {
       </Provider>
     </MemoryRouter>
   );
-  const notFoundElement = screen.getByTestId(/not-found-page/i);
+  const notFoundElement = screen.getByTestId('not-found-page');
   const linkToMain = screen.getByText(/go main/i);
   expect(notFoundElement).toBeInTheDocument();
   expect(linkToMain).toBeInTheDocument();
   userEvent.click(linkToMain);
-  const mainBlock = await screen.findByTestId(/items-block/i);
+  const mainBlock = await screen.findByTestId('items-block');
   expect(mainBlock).toBeInTheDocument();
 });

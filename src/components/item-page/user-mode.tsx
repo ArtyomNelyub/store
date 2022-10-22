@@ -22,6 +22,9 @@ export default function UserMode(props: UserModeProps): JSX.Element {
       e.target.value = '0';
       return;
     }
+    if (Number(e.target.value) % 1 !== 0) {
+      e.target.value = Number(e.target.value).toFixed(0);
+    }
     if (Number(e.target.value) > maxCount) {
       e.target.value = count.toString();
       return;

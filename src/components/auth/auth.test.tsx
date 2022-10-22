@@ -17,10 +17,10 @@ describe('Testing auth component', () => {
         defaultUserState
       )
     );
-    const loginText = screen.getByTestId(/login-text/i);
+    const loginText = screen.getByTestId('login-text');
     userEvent.click(loginText);
-    const loginModal = screen.getByTestId(/login-modal/i);
-    const loginError = screen.queryByTestId(/login-error/i);
+    const loginModal = screen.getByTestId('login-modal');
+    const loginError = screen.queryByTestId('login-error');
     expect(loginError).toBeNull();
     expect(loginModal).toBeInTheDocument();
   });
@@ -35,14 +35,14 @@ describe('Testing auth component', () => {
         defaultUserState
       )
     );
-    const loginText = screen.getByTestId(/login-text/i);
+    const loginText = screen.getByTestId('login-text');
     userEvent.click(loginText);
-    const cancelButton = screen.getByTestId(/cancel-button/i);
+    const cancelButton = screen.getByTestId('cancel-button');
     userEvent.click(cancelButton);
-    const loginModal = screen.queryByTestId(/login-modal/i);
+    const loginModal = screen.queryByTestId('login-modal');
     expect(loginModal).toBeNull();
     userEvent.click(loginText);
-    const crossButton = screen.getByTestId(/close-cross/i);
+    const crossButton = screen.getByTestId('close-cross');
     userEvent.click(crossButton);
     expect(loginModal).toBeNull();
   });
@@ -57,17 +57,17 @@ describe('Testing auth component', () => {
         defaultUserState
       )
     );
-    const loginText = screen.getByTestId(/login-text/i);
+    const loginText = screen.getByTestId('login-text');
     userEvent.click(loginText);
-    const inputLogin = screen.getByTestId(/login-input/i);
-    const inputPassword = screen.getByTestId(/password-input/i);
-    const logInButton = screen.getByTestId(/login-button/i);
+    const inputLogin = screen.getByTestId('login-input');
+    const inputPassword = screen.getByTestId('password-input');
+    const logInButton = screen.getByTestId('login-button');
 
     userEvent.type(inputLogin, 'test');
     userEvent.type(inputPassword, 'test');
     userEvent.click(logInButton);
 
-    const errorField = screen.getByTestId(/login-error/i);
+    const errorField = screen.getByTestId('login-error');
     expect(errorField).toBeInTheDocument();
   });
 
@@ -81,17 +81,17 @@ describe('Testing auth component', () => {
         defaultUserState
       )
     );
-    const loginText = screen.getByTestId(/login-text/i);
+    const loginText = screen.getByTestId('login-text');
     userEvent.click(loginText);
-    const inputLogin = screen.getByTestId(/login-input/i);
-    const inputPassword = screen.getByTestId(/password-input/i);
-    const logInButton = screen.getByTestId(/login-button/i);
+    const inputLogin = screen.getByTestId('login-input');
+    const inputPassword = screen.getByTestId('password-input');
+    const logInButton = screen.getByTestId('login-button');
 
     userEvent.type(inputLogin, 'Son');
     userEvent.type(inputPassword, 'qwerty');
     userEvent.click(logInButton);
 
-    const loginModal = screen.queryByTestId(/login-modal/i);
+    const loginModal = screen.queryByTestId('login-modal');
     expect(loginModal).toBeNull();
   });
 });

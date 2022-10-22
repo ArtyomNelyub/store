@@ -40,8 +40,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).toBeInTheDocument();
     expect(deleteButton).toBeInTheDocument();
   });
@@ -57,8 +57,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.queryByTestId(/add-button/i);
-    const deleteButton = screen.queryByTestId(/delete-button/i);
+    const addButton = screen.queryByTestId('add-button');
+    const deleteButton = screen.queryByTestId('delete-button');
     expect(addButton).toBeNull();
     expect(deleteButton).toBeNull();
   });
@@ -71,9 +71,9 @@ describe('Testing buttons component', () => {
         defaultUserState
       )
     );
-    const addButton = screen.queryByTestId(/add-button/i);
-    const deleteButton = screen.queryByTestId(/delete-button/i);
-    const infoBlock = screen.getByTestId(/info-block/i);
+    const addButton = screen.queryByTestId('add-button');
+    const deleteButton = screen.queryByTestId('delete-button');
+    const infoBlock = screen.getByTestId('info-block');
     expect(infoBlock).toBeInTheDocument();
     expect(addButton).toBeNull();
     expect(deleteButton).toBeNull();
@@ -90,8 +90,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
 
     expect(addButton).not.toHaveAttribute('disabled');
     expect(deleteButton).toHaveAttribute('disabled');
@@ -108,8 +108,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
 
     expect(addButton).toHaveAttribute('disabled');
     expect(deleteButton).not.toHaveAttribute('disabled');
@@ -126,8 +126,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
 
     expect(addButton).not.toHaveAttribute('disabled');
     expect(deleteButton).not.toHaveAttribute('disabled');
@@ -151,8 +151,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).toHaveAttribute('disabled');
     expect(deleteButton).toHaveAttribute('disabled');
   });
@@ -175,8 +175,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).toHaveAttribute('disabled');
     expect(deleteButton).toHaveAttribute('disabled');
   });
@@ -199,8 +199,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).toHaveAttribute('disabled');
     expect(deleteButton).not.toHaveAttribute('disabled');
   });
@@ -223,8 +223,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).not.toHaveAttribute('disabled');
     expect(deleteButton).toHaveAttribute('disabled');
   });
@@ -247,13 +247,13 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByTestId(/add-button/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByTestId('add-button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).not.toHaveAttribute('disabled');
     expect(deleteButton).not.toHaveAttribute('disabled');
   });
 
-  test('if count = 0 add button should become to "none" ', () => {
+  test('if count = 0 add button should become to "none"', () => {
     render(
       renderWithRedux(
         <Buttons
@@ -271,8 +271,8 @@ describe('Testing buttons component', () => {
         }
       )
     );
-    const addButton = screen.getByText(/none/i);
-    const deleteButton = screen.getByTestId(/delete-button/i);
+    const addButton = screen.getByText('none');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(addButton).toHaveAttribute('disabled');
     expect(deleteButton).not.toHaveAttribute('disabled');
   });

@@ -12,7 +12,7 @@ describe('testing small cart element', () => {
         isAuth: true,
       })
     );
-    const smallCartElement = screen.getByTestId(/small-cart/i);
+    const smallCartElement = screen.getByTestId('small-cart');
     expect(smallCartElement).toBeInTheDocument();
   });
 
@@ -23,7 +23,7 @@ describe('testing small cart element', () => {
         isAuth: true,
       })
     );
-    const smallCartElement = screen.queryByTestId(/small-cart/i);
+    const smallCartElement = screen.queryByTestId('small-cart');
     expect(smallCartElement).toBeNull();
   });
 
@@ -34,7 +34,7 @@ describe('testing small cart element', () => {
         isAuth: false,
       })
     );
-    const smallCartElement = screen.queryByTestId(/small-cart/i);
+    const smallCartElement = screen.queryByTestId('small-cart');
     expect(smallCartElement).toBeNull();
   });
 
@@ -45,8 +45,8 @@ describe('testing small cart element', () => {
         isAuth: true,
       })
     );
-    const countItems = screen.queryByTestId(/count-items/i);
-    const sumItems = screen.queryByTestId(/sum-items/i);
+    const countItems = screen.queryByTestId('count-items');
+    const sumItems = screen.queryByTestId('sum-items');
     expect(countItems?.innerHTML).toBe('10');
     expect(sumItems?.innerHTML).toBe('10000');
   });
