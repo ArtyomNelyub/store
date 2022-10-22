@@ -40,20 +40,23 @@ export default function Auth(props: AuthProps): JSX.Element {
   }
 
   return (
-    <div className='modal'>
+    <div className='modal' data-testid="login-modal">
       <div className='modal__window'>
-        <div className='modal__close' onClick={() => setIsModal(false)}>
+        <div className='modal__close' onClick={() => setIsModal(false)} data-testid="close-cross">
           X
         </div>
 
         {isError && (
-          <div className='modal__error'>Неверный логин или пароль</div>
+          <div className='modal__error' data-testid="login-error">
+            Неверный логин или пароль
+          </div>
         )}
 
         <div className='modal__data'>
           <div className='modal__field'>
             <label htmlFor='login'>Login</label>
             <input
+              data-testid='login-input'
               type='text'
               name='login'
               id='login'
@@ -65,6 +68,7 @@ export default function Auth(props: AuthProps): JSX.Element {
           <div className='modal__field'>
             <label htmlFor='login'>Password</label>
             <input
+              data-testid='password-input'
               type='text'
               name='login'
               id='login'
@@ -74,13 +78,14 @@ export default function Auth(props: AuthProps): JSX.Element {
           </div>
         </div>
 
-        <button className='button' onClick={loginActionHandler}>
+        <button className='button' onClick={loginActionHandler} data-testid='login-button'>
           log in
         </button>
 
         <button
           className='button button_delete'
           onClick={() => setIsModal(false)}
+          data-testid='cancel-button'
         >
           cancel
         </button>

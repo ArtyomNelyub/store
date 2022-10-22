@@ -1,7 +1,7 @@
 import { User } from '../types/users';
 import { UserState, Action } from '../types/userReducerTypes';
 
-const defaultUserState: UserState = {
+export const defaultUserState: UserState = {
   user: null,
   isAuth: false,
 };

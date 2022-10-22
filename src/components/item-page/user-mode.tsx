@@ -28,24 +28,23 @@ export default function UserMode(props: UserModeProps): JSX.Element {
     }
 
     setCountInputValue(Number(e.target.value));
-
   }
 
   return (
-    <div className='item-page'>
+    <>
       <div
         className='item-page__img'
         style={{
           background: `url(${img}) center / cover no-repeat`,
         }}
       ></div>
-      <div className='item-page__content'>
+      <div className='item-page__content' data-testid='user-mode'>
         <div className='item-page__header'>
-          <div className='item-page__name'>{name}</div>
-          <div className='item-page__price'>{price} р.</div>
+          <div className='item-page__name' data-testid='name-field-user-mode'>{name}</div>
+          <div className='item-page__price' data-testid='price-field-user-mode'>{price} р.</div>
         </div>
-        <div className='item-page__number'>В наличии: {count} шт.</div>
-        <p className='item-page__text'>{description}</p>
+        <div className='item-page__number' data-testid='item-count-in-store'>В наличии: {count} шт.</div>
+        <p className='item-page__text' data-testid='description-field-user-mode'>{description}</p>
         <div className='item-page__footer'>
           {user !== null && user.isAdmin && !adminMode && (
             <div
@@ -53,6 +52,7 @@ export default function UserMode(props: UserModeProps): JSX.Element {
               onClick={() => {
                 setAdminMode(true);
               }}
+              data-testid='correct-button'
             >
               редактировать
             </div>
@@ -63,6 +63,7 @@ export default function UserMode(props: UserModeProps): JSX.Element {
               countChange={countInputValue === 0 ? 1 : countInputValue}
             >
               <input
+                data-testid='input-count-item'
                 ref={countInput}
                 type='number'
                 name='item-count'
@@ -75,6 +76,6 @@ export default function UserMode(props: UserModeProps): JSX.Element {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

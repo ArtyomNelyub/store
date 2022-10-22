@@ -1,7 +1,7 @@
 import { Items, Item } from '../types/items';
 import { ItemsState, Action } from '../types/itemsReducerTypes';
 
-const defaultItemsState: ItemsState = {
+export const defaultItemsState: ItemsState = {
   items: [],
   cartItems: [],
   currentItem: null,
@@ -18,7 +18,6 @@ export enum Actions {
   FETCH_ITEMS = 'FETCH_ITEMS',
   REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART',
   DELETE_ITEM = 'DELETE_ITEM',
-  CLEAR_CART = 'CLEAR_CART',
   UPDATE_SMALL_CART = 'UPDATE_SMALL_CART',
   CLEAR_ITEMS = 'CLEAR_ITEMS',
 }
@@ -32,7 +31,15 @@ export const itemsReducer = (
       return { ...state, items: action.payload, isItemsLoaded: true };
 
     case Actions.CLEAR_ITEMS:
-      return { ...state, items: [], isItemsLoaded: false };
+      return {
+        items: [],
+        cartItems: [],
+        currentItem: null,
+        isItemsLoaded: false,
+        isItemLoaded: false,
+        itemPrice: 0,
+        itemCount: 0,
+      };
 
     case Actions.SELECT_ITEM:
       return {
@@ -162,22 +169,6 @@ export const itemsReducer = (
 
       return { ...state };
 
-    case Actions.CLEAR_CART:
-      if (state.cartItems.length === 0) {
-        return { ...state };
-      }
-
-      state.cartItems.forEach((cartItem) => {
-        let index = state.items.findIndex((item) => item.id === cartItem.id);
-        if (index !== -1) {
-          state.items[index].count += cartItem.count;
-        }
-      });
-
-      state.cartItems = [];
-
-      return { ...state };
-
     case Actions.UPDATE_SMALL_CART:
       state.itemPrice = state.cartItems.reduce(
         (prev, item) => Number((item.count * item.price + prev).toFixed(2)),
@@ -194,9 +185,6 @@ export const itemsReducer = (
   }
 };
 
-export const clearCartAction = (): { type: Actions.CLEAR_CART } => ({
-  type: Actions.CLEAR_CART,
-});
 export const clearItemsAction = (): { type: Actions.CLEAR_ITEMS } => ({
   type: Actions.CLEAR_ITEMS,
 });

@@ -8,8 +8,10 @@ export default function CartSmall(): JSX.Element {
 
   if (isAuth && user !== null && !user.isAdmin) {
     return (
-      <div className='cart'>
-        В корзине {String(countItems)} товаров на сумму {String(priceItems)} р.
+      <div className='cart' data-testid='small-cart'>
+        В корзине <span data-testid='count-items'>{String(countItems)}</span>{' '}
+        товаров на сумму{' '}
+        <span data-testid='sum-items'>{String(priceItems)}</span> р.
       </div>
     );
   }

@@ -62,7 +62,7 @@ export default function Buttons({
 
   if (!isAuth) {
     return (
-      <div className='info'>
+      <div className='info' data-testid='info-block'>
         Пожалуйста, зарегистрируйтесь, чтобы совершать покупки.
       </div>
     );
@@ -75,6 +75,7 @@ export default function Buttons({
   return (
     <>
       <button
+        data-testid='delete-button'
         className='item__button button button_delete'
         onClick={onClickHandlerDelete}
         disabled={count === maxCount || maxCount - count < countChange}
@@ -85,6 +86,7 @@ export default function Buttons({
       {children}
 
       <button
+        data-testid='add-button'
         className='item__button button'
         onClick={onClickHandlerAdd}
         disabled={countChange > count || count <= 0}

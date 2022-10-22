@@ -46,5 +46,5 @@ type ActionIdAndCount = {
 };
 
 type ActionWithoutPayload = {
-  type: Actions.CLEAR_CART | Actions.UPDATE_SMALL_CART | Actions.CLEAR_ITEMS;
+  type: Actions.UPDATE_SMALL_CART | Actions.CLEAR_ITEMS;
 };

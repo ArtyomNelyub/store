@@ -10,7 +10,7 @@ export default function Layout():JSX.Element {
     <>
       <Header {...{ setIsModal }} />
 
-      <div className='main'>
+      <div className='main' data-testid='main-container'>
         {isModal && <Auth setIsModal={setIsModal} />}
 
         <div className='main__container'>

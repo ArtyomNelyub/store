@@ -38,9 +38,11 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
     e: React.ChangeEvent<HTMLInputElement>,
     cb: (numb: number) => void
   ) {
-    
     if (/[0-9]+/.test(e.target.value)) {
       cb(Number(e.target.value));
+    }
+    if (Number(e.target.value) % 1 !== 0) {
+      cb(Number(Number(e.target.value).toFixed(0)));
     }
     if (Number(e.target.value) < 0 || e.target.value === '') {
       cb(0);
@@ -92,18 +94,19 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
   }
 
   return (
-    <div className='item-page'>
+    <>
       <div
         className='item-page__img'
         style={{
           background: `url(${img}) center / cover no-repeat`,
         }}
       ></div>
-      <div className='item-page__content'>
+      <div className='item-page__content' data-testid='admin-mode'>
         <div className='item-page__header'>
           <div className='item-page__correct-block'>
             <label htmlFor='name'>Название</label>
             <input
+              data-testid='input-correct-name'
               type='text'
               name='name'
               id='name'
@@ -115,6 +118,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
           <div className='item-page__correct-block'>
             <label htmlFor='price'>Цена</label>
             <input
+              data-testid='input-correct-price'
               type='number'
               name='price'
               id='price'
@@ -126,6 +130,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
         <div className='item-page__correct-block'>
           <label htmlFor='count'>В наличии</label>
           <input
+            data-testid='input-correct-count'
             type='number'
             name='count'
             id='count'
@@ -136,6 +141,7 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
         <div className='item-page__correct-block'>
           <label htmlFor='price'>Описание</label>
           <textarea
+            data-testid='textarea-correct-description'
             name='price'
             id='price'
             rows={7}
@@ -147,17 +153,18 @@ export default function AdminMode(props: AdminModeProps): JSX.Element {
         <div className='item-page__footer'>
           <div
             className='item-page__button button_delete button'
+            data-testid='cancel-button'
             onClick={() => {
               setAdminMode(false);
             }}
           >
             отмена
           </div>
-          <div className='item-page__button button' onClick={saveHandler}>
+          <div className='item-page__button button' onClick={saveHandler} data-testid='save-button'>
             сохранить
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

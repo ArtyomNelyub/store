@@ -98,7 +98,7 @@ export const items: Items = [
     price: 1000,
     img: '/img/Mech_bronzovogo_veka.webp',
     description:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit similique sit ex libero optio facilis tempore non deserunt voluptatum explicabo vitae voluptatibus, nulla vel architecto. Dolores nulla dolore nostrum ratione totam pariatur vel. Rem, excepturi nostrum? Ratione, id sapiente dignissimos est ut enim quibusdam soluta deleniti cupiditate illo sint asperiores.',
+      'Lorem ipsum dolor sit.',
     count: 10,
     maxCount: 10,
   },

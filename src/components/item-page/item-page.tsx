@@ -18,7 +18,7 @@ export default function ItemPage(): JSX.Element {
   const isItemLoaded = useAppSelector((state) => state.items.isItemLoaded);
   const [adminMode, setAdminMode] = useState<boolean>(false);
   const item: Item | undefined = items.find((i) => i.id === Number(currentId));
-  
+
   useEffect(() => {
     if (isItemsLoaded && item !== undefined) {
       dispatch(selectItemAction(item));
@@ -45,8 +45,10 @@ export default function ItemPage(): JSX.Element {
   return (
     <>
       <CartSmall />
-      {!adminMode && <UserMode {...{ adminMode, setAdminMode }} />}
-      {adminMode && <AdminMode {...{ setAdminMode }} />}
+      <div className='item-page' data-testid='item-block'>
+        {!adminMode && <UserMode {...{ adminMode, setAdminMode }} />}
+        {adminMode && <AdminMode {...{ setAdminMode }} />}
+      </div>
     </>
   );
 }

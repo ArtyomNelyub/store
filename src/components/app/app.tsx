@@ -1,15 +1,17 @@
-import About from './about/about';
-import Cart from './cart/cart';
-import ItemPage from './item-page/item-page';
-import Main from './main/main';
-import Layout from './layout/layout';
-import NotFound from './not-found/not-found';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { AppRoute } from '../const/app-route';
+import About from '../about/about';
+import Cart from '../cart/cart';
+import ItemPage from '../item-page/item-page';
+import Main from '../main/main';
+import Layout from '../layout/layout';
+import NotFound from '../not-found/not-found';
+import { Routes, Route } from 'react-router-dom';
+import { AppRoute } from '../../const/app-route';
+import { Provider } from 'react-redux';
+import { store } from '../../app-store';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <Provider store={store}>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Main />}></Route>
@@ -19,7 +21,7 @@ function App(): JSX.Element {
         </Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
-    </BrowserRouter>
+    </Provider>
   );
 }
 

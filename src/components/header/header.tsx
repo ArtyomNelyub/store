@@ -1,8 +1,6 @@
-import { logOutAction } from '../../app-store/userReducer';
+import HeaderAuth from './header-auth';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
-import { clearCartAction, clearItemsAction, updateSmallCartAction } from '../../app-store/itemsReducer';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderProps = {
   setIsModal: (a:boolean) => void
@@ -10,45 +8,22 @@ type HeaderProps = {
 
 export default function Header(props : HeaderProps):JSX.Element {
   const { setIsModal } = props;
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
 
   return (
-    <header className='header'>
+    <header className='header' data-testid='header'>
       <div className='header__container'>
         <nav className='header__navigation navigation'>
-          <Link to={AppRoute.MAIN} className='navigation__link'>
+          <Link to={AppRoute.MAIN} data-testid='main-link' className='navigation__link'>
             Items
           </Link>
-          <Link to={AppRoute.ABOUT} className='navigation__link'>
+          <Link to={AppRoute.ABOUT} data-testid='about-link' className='navigation__link'>
             About us
           </Link>
-          <Link to={AppRoute.CART} className='navigation__link'>
+          <Link to={AppRoute.CART} data-testid='cart-link' className='navigation__link'>
             Cart
           </Link>
         </nav>
-        <div className='header__auth auth'>
-          {user === null ? (
-            <div className='auth__link' onClick={() => setIsModal(true)}>
-              Log in
-            </div>
-          ) : (
-            <>
-              <div className='auth__link'>{user.name}</div>
-              <div
-                className='auth__link'
-                onClick={() => {
-                  dispatch(logOutAction());
-                  dispatch(clearCartAction());
-                  dispatch(clearItemsAction())
-                  dispatch(updateSmallCartAction());
-                }}
-              >
-                Log-out
-              </div>
-            </>
-          )}
-        </div>
+        <HeaderAuth {...{ setIsModal }}/>
       </div>
     </header>
   );

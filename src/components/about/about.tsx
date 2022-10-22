@@ -1,7 +1,8 @@
 export default function About():JSX.Element {
   return (
-    <div className='about'>
+    <div className='about' data-testid='about-block'>
       <p className='about__text'>
+        <h1>Welcome to the shop!</h1>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab deserunt
         modi nam repudiandae molestiae? Iste est minima atque veritatis debitis
         molestiae quae harum, quibusdam quia facilis ratione illum facere eum
